@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd ${HOME}/.local/Faris\ Motor/
+${HOME}/.local/Faris\ Motor/.venv/bin/python ${HOME}/.local/auto-standa/auto-standa.py $1
+cd -
