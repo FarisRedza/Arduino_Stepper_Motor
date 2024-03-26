@@ -43,7 +43,12 @@ def print_power_meter_status(powermeter: PowerMeter) -> None:
 def set_ref_power(powermeter: PowerMeter):
     powermeter.ref_power = Power(powermeter.powermeter.read)
 
-def calibrate_noise_map(ref_power: Power, motor: Motor, powermeter: PowerMeter) -> typing.List[Noise]:
+def calibrate_noise_map(
+        ref_power: Power,
+        motor: Motor,
+        powermeter: PowerMeter,
+        offset: float = 0
+) -> typing.List[Noise]:
     rotate_to_angle(motor=motor)
     step = angle_to_step(angle=1, full_step=motor.full_step)
     noise_map = list()
@@ -52,7 +57,10 @@ def calibrate_noise_map(ref_power: Power, motor: Motor, powermeter: PowerMeter) 
         noise_map.append(Noise(
             angle=i,
             power=current_power,
-            noise=calc_noise_level(ref_power=ref_power, current_power=current_power)
+            noise=calc_noise_level(
+                ref_power=ref_power,
+                current_power=current_power
+                ) + offset
         ))
         step_motor(motor=motor, step=step)
 

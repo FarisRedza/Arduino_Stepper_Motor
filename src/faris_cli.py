@@ -82,7 +82,11 @@ def main() -> None:
                     powermeter.ref_power = motor.noise_map[0]['power']
 
             if option == 9:
-                calibrate_noise_map(ref_power=powermeter.ref_power, motor=motor, powermeter=powermeter)
+                try:
+                    offset = float(input('Enter the offset noise [0]: ').strip())
+                except:
+                    offset = 0
+                calibrate_noise_map(ref_power=powermeter.ref_power, motor=motor, powermeter=powermeter, offset=offset)
 
 if '__main__' == __name__:
     main()
