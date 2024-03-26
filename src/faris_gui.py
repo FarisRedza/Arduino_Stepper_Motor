@@ -14,7 +14,7 @@ def on_closing() -> None:
 
 def run_cli() -> None:
     global cli_process
-    cli_process = subprocess.Popen(["python3", "faris_cli.py"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    cli_process = subprocess.Popen(['python3', 'faris_cli.py'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
     cli_process.wait()
     window.quit()  
 
@@ -46,13 +46,13 @@ def main_menu_button_click(option: str) -> None:
 def set_option(option) -> None:
     selected_option.set(option)
 
-def create_main_menu(menu: "dict[str, str]") -> None:
-    label = tk.Label(text="Select option", master=main_menu_frame)
+def create_main_menu(menu: 'dict[str, str]') -> None:
+    label = tk.Label(text='Select option', master=main_menu_frame)
     label.pack(anchor=tk.NW, pady=2)
 
     width = max(len(value) for value in menu.values())
     for key, value in menu.items():
-        button = tk.Button(text=value, command=lambda v=key: main_menu_button_click(v), width=width, anchor="w", master=main_menu_frame)
+        button = tk.Button(text=value, command=lambda v=key: main_menu_button_click(v), width=width, anchor='w', master=main_menu_frame)
         button.pack(anchor=tk.NW)
 
 def show_main_menu():
@@ -69,11 +69,11 @@ def rotate_menu_quit_click() -> None:
     show_main_menu()
     clear_frame(rotate_menu_frame)
 
-def create_rotate_menu(mode: str, menu: "dict[str, str]") -> None:
-    mode_label = tk.Label(text=f"Selected option: {menu.get(mode)}", master=rotate_menu_frame)
+def create_rotate_menu(mode: str, menu: 'dict[str, str]') -> None:
+    mode_label = tk.Label(text=f'Selected option: {menu.get(mode)}', master=rotate_menu_frame)
     mode_label.pack(anchor=tk.NW, pady=2)
     
-    quit_button = tk.Button(text="Back", command=rotate_menu_quit_click, master=rotate_menu_frame)
+    quit_button = tk.Button(text='Back', command=rotate_menu_quit_click, master=rotate_menu_frame)
     quit_button.pack(anchor=tk.NW, pady=2)
 
 def show_rotate_menu():
@@ -91,10 +91,10 @@ create_main_menu(faris_cli.menu_dict)
 status_frame = tk.Frame(master=window)
 status_frame.grid(row=0, column=1, sticky=tk.NW, pady=2)
 
-status_label = tk.Label(text="Status", master=status_frame)
+status_label = tk.Label(text='Status', master=status_frame)
 status_label.grid(row=0, column=0, sticky=tk.NW, pady=2)
 status_text = tk.Text(master=status_frame)
 status_text.grid(row=1, column=0, sticky=tk.NW, pady=2)
 
-window.protocol("WM_DELETE_WINDOW", on_closing)
+window.protocol('WM_DELETE_WINDOW', on_closing)
 window.mainloop()

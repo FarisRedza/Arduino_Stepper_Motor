@@ -5,21 +5,21 @@ from powermeter import *
 
 def clear() -> None:
     if os.name == 'nt':
-        _ = os.system("cls")
+        _ = os.system('cls')
     else:
-        _ = os.system("clear")
+        _ = os.system('clear')
 
 menu_dict = {
-    "0": "Set zero point",
-    "1": "Rotate motor by angle",
-    "2": "Rotate motor by step",
-    "3": "Rotate to angle",
-    "4": "Rotate to noise level",
-    "5": "Return to zero",
-    "8": "Set reference power",
-    "9": "Calibrate noise map",
-    "R": "Refresh",
-    "Q": "Quit"
+    '0': 'Set zero point',
+    '1': 'Rotate motor by angle',
+    '2': 'Rotate motor by step',
+    '3': 'Rotate to angle',
+    '4': 'Rotate to noise level',
+    '5': 'Return to zero',
+    '8': 'Set reference power',
+    '9': 'Calibrate noise map',
+    'R': 'Refresh',
+    'Q': 'Quit'
 }
 
 def main() -> None:
@@ -31,9 +31,9 @@ def main() -> None:
         print_motor_status(motor=motor)
         print_power_meter_status(powermeter=powermeter)
 
-        print("Select option:")
+        print('Select option:')
         for key, value in menu_dict.items():
-            print(key + ")", value)
+            print(key + ')', value)
         user_input = input()
         if user_input.lower() == 'q':
             break
@@ -44,7 +44,7 @@ def main() -> None:
             try:
                 option = int(user_input)
             except:
-                print("Invalid input")
+                print('Invalid input')
         
             if option == 0:
                 set_zero_point(motor=motor)
@@ -53,14 +53,14 @@ def main() -> None:
             while option >= 1 and option <= 4:
                 clear()
                 print_motor_status(motor=motor)
-                user_input = input("Selected option: " + menu_dict.get(str(option)) + "\nEnter number or q to return to previous menu: ")
+                user_input = input('Selected option: ' + menu_dict.get(str(option)) + '\nEnter number or q to return to previous menu: ')
                 if user_input.lower() == 'q':
                     option = -1
                     break
                 try:
                     step = float(user_input)
                 except:
-                    print("Invalid input")
+                    print('Invalid input')
                 else:
                     if option == 1:
                         step = angle_to_step(angle=step, full_step=motor.full_step)

@@ -5,10 +5,10 @@ import math
 import json
 import os
 
-Angle = typing.NewType("Angle", int)
-Step = typing.NewType("Step", int)
-NoiseDB = typing.NewType("NoiseDB", float)
-Power = typing.NewType("Power", float)
+Angle = typing.NewType('Angle', int)
+Step = typing.NewType('Step', int)
+NoiseDB = typing.NewType('NoiseDB', float)
+Power = typing.NewType('Power', float)
 
 @dataclasses.dataclass
 class Noise:
@@ -71,7 +71,7 @@ def get_motor_status(motor: Motor) -> None:
     try:
         motor.motor.open_device()
     except:
-        print("Error getting motor status: Unable to connect to device")
+        print('Error getting motor status: Unable to connect to device')
     else:
         position = motor.motor.get_status().CurPosition
         while position < 0:
@@ -82,14 +82,14 @@ def get_motor_status(motor: Motor) -> None:
         motor.current_angle = step_to_angle(step=motor.current_step, full_step=motor.full_step)
         motor.motor.close_device()
         if motor.noise_map != None:
-            index = min(range(len(motor.noise_map)), key=lambda i: abs(motor.noise_map[i]["angle"] - motor.current_angle))
-            motor.current_noise = motor.noise_map[index]["noise"]
+            index = min(range(len(motor.noise_map)), key=lambda i: abs(motor.noise_map[i]['angle'] - motor.current_angle))
+            motor.current_noise = motor.noise_map[index]['noise']
 
 def set_zero_point(motor: Motor) -> None:
     try:
         motor.motor.open_device()
     except:
-        print("Error setting motor zero point: Unable to connect to device")
+        print('Error setting motor zero point: Unable to connect to device')
     else:
         motor.motor.command_zero()
         motor.motor.close_device()
@@ -99,27 +99,27 @@ def print_motor_status(motor: Motor) -> None:
     if motor.current_step == motor.full_step:
             set_zero_point(motor=motor)
     if motor.port:
-        print("Standa motor connected at port:", motor.port)
+        print('Standa motor connected at port:', motor.port)
     else:
-        print("Standa motor not found")
-    print("Current angle:", motor.current_angle)
-    print("Current step:", motor.current_step, "/", motor.full_step)
+        print('Standa motor not found')
+    print('Current angle:', motor.current_angle)
+    print('Current step:', motor.current_step, '/', motor.full_step)
     try:
         motor.noise_map = get_noise_map()
     except:
-        print("No calibration file found")
+        print('No calibration file found')
     else:
-        print("Calibration file found")
-    print("Estimated noise:", motor.current_noise, "dB")
+        print('Calibration file found')
+    print('Estimated noise:', motor.current_noise, 'dB')
 
 def step_motor(motor: Motor, step: Step) -> None:
     try:
         motor.motor.open_device()
     except:
-        print("Error stepping motor: Unable to connect to device")
+        print('Error stepping motor: Unable to connect to device')
     else:
         motor.motor.command_movr(int(step), 0)
-        print("Rotating motor")
+        print('Rotating motor')
         motor.motor.command_wait_for_stop(refresh_interval_ms=10)
         motor.motor.close_device()
         get_motor_status(motor=motor)
@@ -131,9 +131,9 @@ def rotate_to_angle(motor: Motor, target_angle: Angle = 0) -> None:
     step_motor(motor=motor, step=step_delta)
 
 def rotate_to_noise(motor: Motor, target_noise: Noise) -> None:
-    index = min(range(len(motor.noise_map)), key=lambda i: abs(motor.noise_map[i]["noise"] - target_noise))
-    print('Rotating to closest noise: {motor.noise_map[index]} dB')
-    target_angle = motor.noise_map[index]["angle"]
+    index = min(range(len(motor.noise_map)), key=lambda i: abs(motor.noise_map[i]['noise'] - target_noise))
+    print('Rotating to closest noise value: {motor.noise_map[index]} dB')
+    target_angle = motor.noise_map[index]['angle']
     rotate_to_angle(motor=motor, target_angle=target_angle)
 
 def calc_noise_level(ref_power: Power, current_power: Power) -> NoiseDB:
@@ -141,10 +141,10 @@ def calc_noise_level(ref_power: Power, current_power: Power) -> NoiseDB:
         noise = NoiseDB(-10 * math.log10(current_power/ref_power))
     except:
         noise = None
-        print("Error calculating noise, setting to None")
+        print('Error calculating noise, setting to None')
     return noise
 
 def get_noise_map() -> typing.List[Noise]:
-    with open("calibration.json", "r") as file:
+    with open('calibration.json', 'r') as file:
         data = list(json.load(file))
     return data
