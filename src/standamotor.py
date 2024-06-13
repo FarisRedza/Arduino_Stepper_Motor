@@ -148,7 +148,7 @@ def rotate_to_noise(motor: Motor, target_noise: Noise) -> None:
                 motor.noise_map[i]['noise'] - target_noise
             )
         )
-    print('Rotating to closest noise value: {motor.noise_map[index]} dB')
+    print(f'Rotating to closest noise value: {motor.noise_map[index].noise} dB')
     target_angle = motor.noise_map[index]['angle']
     rotate_to_angle(motor=motor, target_angle=target_angle)
 

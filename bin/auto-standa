@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 cd ${HOME}/.local/Faris\ Motor/
-${HOME}/.local/Faris\ Motor/.venv/bin/python ${HOME}/.local/auto-standa/auto-standa.py $1
+${HOME}/.local/Faris\ Motor/.venv/bin/python ${HOME}/.local/Faris\ Motor/auto-standa.py $1
 cd -
