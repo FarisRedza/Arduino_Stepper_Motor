@@ -54,6 +54,7 @@ def calibrate_noise_map(
     noise_map = list()
     for i in range(0, 360):
         current_power = powermeter.powermeter.read
+        print(current_power)
         noise_map.append(Noise(
             angle=i,
             power=current_power,
@@ -64,10 +65,11 @@ def calibrate_noise_map(
         ))
         step_motor(motor=motor, step=step)
 
-    noise_map = noise_map[:next((i for i, d in enumerate(
-        noise_map[1:],
-        start=1
-    ) if d.noise < noise_map[i - 1].noise), len(noise_map))]
+    # fix this, need solution for finding window and removing from calibration
+    # noise_map = noise_map[:next((i for i, d in enumerate(
+    #     noise_map[1:],
+    #     start=1
+    # ) if d.noise < noise_map[i - 1].noise), len(noise_map))]
     
     with open('calibration.json', 'w') as file:
         json.dump(noise_map, file, cls=dataclassJSONEncoder, indent=4)

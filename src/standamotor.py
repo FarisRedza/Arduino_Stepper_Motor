@@ -161,6 +161,9 @@ def calc_noise_level(ref_power: Power, current_power: Power) -> NoiseDB:
     return noise
 
 def get_noise_map() -> typing.List[Noise]:
-    with open('calibration.json', 'r') as file:
-        data = list(json.load(file))
+    try:
+        with open('calibration.json', 'r') as file:
+            data = list(json.load(file))
+    except:
+        data = None
     return data
