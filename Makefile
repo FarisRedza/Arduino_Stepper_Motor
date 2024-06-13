@@ -5,7 +5,7 @@ APP_DIR := $(HOME)/.local/share/applications
 install:
 	install -D src/* -t $(INSTALL_DIR)
 	python3 -m venv $(INSTALL_DIR)/.venv
-	$(INSTALL_DIR)/.venv/bin/python -m pip -r requirements.txt
+	$(INSTALL_DIR)/.venv/bin/python -m pip install -r requirements.txt
 
 	install -D bin/* -t $(BIN_DIR)
 	install -D res/* -t $(APP_DIR)
