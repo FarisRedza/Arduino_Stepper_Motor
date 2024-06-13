@@ -53,7 +53,9 @@ def main() -> None:
             while option >= 1 and option <= 4:
                 clear()
                 print_motor_status(motor=motor)
-                user_input = input('Selected option: ' + menu_dict.get(str(option)) + '\nEnter number or q to return to previous menu: ')
+                user_input = input(
+                    'Selected option: ' + menu_dict.get(str(option)) + '\nEnter number or q to return to previous menu: '
+                )
                 if user_input.lower() == 'q':
                     option = -1
                     break
@@ -86,7 +88,12 @@ def main() -> None:
                     offset = float(input('Enter the offset noise [0]: ').strip())
                 except:
                     offset = 0
-                calibrate_noise_map(ref_power=powermeter.ref_power, motor=motor, powermeter=powermeter, offset=offset)
+                calibrate_noise_map(
+                    ref_power=powermeter.ref_power,
+                    motor=motor,
+                    powermeter=powermeter,
+                    offset=offset
+                )
 
 if '__main__' == __name__:
     main()
