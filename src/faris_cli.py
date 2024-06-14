@@ -47,7 +47,11 @@ def main() -> None:
                 print('Invalid input')
         
             if option == 0:
-                set_zero_point(motor=motor)
+                confirm = input(
+                    'Warning: Setting the zero point will invalidate any calibration files used, do you wish to proceed? y/[n]: '
+                ).strip().lower()
+                if confirm == 'y' or confirm == 'yes':
+                    set_zero_point(motor=motor)
                 option = -1
 
             while option >= 1 and option <= 4:
